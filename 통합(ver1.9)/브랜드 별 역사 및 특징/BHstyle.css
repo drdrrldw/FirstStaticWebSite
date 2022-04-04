@@ -438,9 +438,9 @@
 
 
 
-/* 푸터영역
+/* 푸터영역 */
 .fullRapStarbucks *{
-  display: none;
+  display:none;
 }
 
 .fullRapTomandtoms *{
@@ -453,4 +453,4 @@
 
 .fullRapHollys *{
   display: none;
-} */
+} 
