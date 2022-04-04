@@ -1,9 +1,5 @@
 
 
-    
-
-
-
 function showContent(num){
 
       
@@ -82,8 +78,40 @@ function showContent(num){
     
 
     }
+}
+
+
+
+
+function scrollView(n){
     
+    if(n == 2){
+       if(document.querySelectorAll(".fullRapStarbucks *")[0].style.display == 'inline-block'){
+                document.getElementById('starbucksA2').scrollIntoView(true);
 
+        } else if ( document.querySelectorAll(".fullRapTomandtoms *")[0].style.display == 'inline-block'){
+            document.getElementById('tomandtomsA2').scrollIntoView(true);
 
+        } else if ( document.querySelectorAll(".fullRapEdiya *")[0].style.display == 'inline-block'){
+            document.getElementById('ediyaA2').scrollIntoView(true);
 
+        } else if (document.querySelectorAll(".fullRapHollys *")[0].style.display == 'inline-block'){
+            document.getElementById('hollysA2').scrollIntoView(true);
+        }
+    } 
+    
+    else if(n == 3){
+        if(document.querySelectorAll(".fullRapStarbucks *")[0].style.display == 'inline-block'){
+            document.getElementById('sec3Starbucks').scrollIntoView(true);
+ 
+         } else if ( document.querySelectorAll(".fullRapTomandtoms *")[0].style.display == 'inline-block'){
+            document.getElementById('sec3Tom').scrollIntoView(true);
+ 
+         } else if ( document.querySelectorAll(".fullRapEdiya *")[0].style.display == 'inline-block'){
+            document.getElementById('sec3Ediya').scrollIntoView(true);
+ 
+         } else if (document.querySelectorAll(".fullRapHollys *")[0].style.display == 'inline-block'){
+            document.getElementById('sec3Hollys').scrollIntoView(true);
+     } 
+    }
 }

@@ -97,7 +97,7 @@
 .dropbtn {
   background-color: #ab1e2300;
   color: #ffffff;
-  padding: 10px;
+  padding: 5px;
   font-size: 20px;
   border : none;
   font-weight: bolder;
@@ -111,29 +111,13 @@
   z-index: 55;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 55;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
+.dropbtn a{
   text-decoration: none;
-  display: block;
-  cursor: pointer;
-  z-index: 55;
+  font-size: 20px;
+  color: beige;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #b34d50;}
+.dropdown:hover .dropbtn {background-color: #828282;}
 
 
 
@@ -223,7 +207,7 @@
 .dropdown-content01 {
   display: none;
   position: relative;
-  background-color: #f1f8e2;
+  background-color: #fae1dd;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 500;
@@ -243,7 +227,7 @@
 
 .dropdown01:hover .dropdown-content01 {display: block;}
 
-.dropdown01:hover .dropbtn01 {background-color: #3e8e41;}
+.dropdown01:hover .dropbtn01 {background-color: #344400;}
 
 
 
@@ -256,7 +240,7 @@
 
 .section01{
   width: 90vw;
-  height: 170vh;
+  
   position: relative;
   
   display: inline-block;
@@ -297,8 +281,9 @@
   width: calc(100vw - (100vw - 100%));
   height: 500px;
   position: relative;
-  display: flex;
-  justify-content: space-around;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .LHPI{
@@ -309,7 +294,14 @@
   width: auto;
   text-align: center;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 15px;
+  word-break:break-all;
+}
+
+.LHPBRap{
+  width: 300px;
+  
+  white-space: pre-wrap;
 }
 
 .bottomscroll{
@@ -323,6 +315,15 @@
 .bottomscroll > button{
   width: 300px;
   height: 100px;
+  background-color: #ab1e22;
+  font-size: 20px;
+  
+}
+
+.bottomscroll > button > a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
 }
 
 /* asd */
@@ -351,19 +352,21 @@
 .section03 {
   
   width: calc(100vw - (100vw - 100%));
-  height: 20vh;
+  height: 50vh;
   display: inline-block;
   position: relative;
-  
+  text-align: center;
 
 }
 
 .section03 > h3{
   font-weight: bolder;
+  margin-bottom: 20px;
 }
 
 .section03 > ul {
   font-size:0;
+  margin-top: 20px;
 }
 
 .section03 > ul > li {
@@ -438,7 +441,7 @@
 
 
 
-/* 푸터영역 */
+/* 브랜드 화면 가리기 */
 .fullRapStarbucks *{
   display:none;
 }
