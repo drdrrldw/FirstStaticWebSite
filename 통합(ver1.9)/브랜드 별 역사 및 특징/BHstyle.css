@@ -294,7 +294,7 @@
 
 .lowhighPriceBox{
   width: calc(100vw - (100vw - 100%));
-  height: 500px;
+  height: 400px;
   display: flex;
   justify-content: space-around;
 }
@@ -310,8 +310,22 @@
   font-size: 20px;
 }
 
+.bottomscroll{
+  display: inline-block;
+  position: relative;
+  width: calc(100vw - (100vw - 100%));
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.bottomscroll > button{
+  width: 300px;
+  height: 100px;
+}
 
 /* asd */
+
+
 
 
 .brand_imgBox{
@@ -327,10 +341,8 @@
   height : 60vh;
 }
 
-.bottomscroll{
-  display: inline-block;
-  position: relative;
-}
+
+
 
 
  /* 하단 링크 마우스호버부분 */ 
@@ -343,6 +355,11 @@
   
 
 }
+
+.section03 > h3{
+  font-weight: bolder;
+}
+
 .section03 > ul {
   font-size:0;
 }
@@ -420,10 +437,18 @@
 
 
 /* 푸터영역 */
+.fullRapStarbucks *{
+  /* display: none; */
+}
 
+.fullRapTomandtoms *{
 
-.footer{
-  width: 100%;
-  height: 30vh;
-  
+}
+
+.fullRapEdiya *{
+  display: none;
+}
+
+.fullRapHollys *{
+  display: none;
 }
