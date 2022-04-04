@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>개인정보 수정</title>
+<script language="javascript">
+   function validate() {
+       let re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+       let re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+       // 이메일이 적합한지 검사할 정규식
+
+       let pw = document.getElementById("pw");
+       let email = document.getElementById("email");
+       let num1 = document.getElementById("num1");
+       let num2 = document.getElementById("num2");
+
+       // ------------ 이메일 까지 -----------
+
+       if(join.pw.value != join.checkpw.value) {
+           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+           join.checkpw.value = "";
+           join.checkpw.focus();
+           return false;
+       }
+
+       if(email.value=="") {
+           alert("이메일을 입력해 주세요");
+           email.focus();
+           return false;
+       }
+
+       if(!check(re2, email, "적합하지 않은 이메일 형식입니다.")) {
+           return false;
+       }
+
+       if(join.name.value=="") {
+           alert("이름을 입력해 주세요");
+           join.name.focus();
+           return false;
+       }
+
+      alert("회원정보가 변경되었습니다.");
+   }
+
+   function check(re, what, message) {
+       if(re.test(what.value)) {
+           return true;
+       }
+       alert(message);
+       what.value = "";
+       what.focus();
+       return false;
+   }
+</script>
+
+</head>
+<body>
+<h1 align="center" style="font-size:50px;"><font color="navy"><b>##</b></font></h1>
+<form name="join" onsubmit="return validate();" action="http://naver.com" method="post" enctype="text/plain">
+   <table width="600" height="400" border="1" align="center" cellspacing="0">
+       <tr height="10" align="center">
+           <td colspan="2" style="background:navy;" ><font color=white><b>개인정보변경</b></font></td>
+       </tr>
+       <tr>
+           <td><b>비밀번호:</b></td>
+           <td><input type="text" style="width:170px"id="id" name="id" maxlength="12" /> 바꿀 비밀번호를 입력하세요.</td>
+       </tr>
+       <tr>
+           <td><b>비밀번호 확인:</b></td>
+           <td><input type="password"  style="width:170px"id="pw" maxlength="12"/> 비밀번호 확인</td>
+       </tr>
+
+       <tr>
+           <td><b>메일주소:</b></td>
+           <td><input type="text" style="width:170px" id="email" /> ex)human@suwon.com</td>
+       </tr>
+       <tr>
+           <td><b>이름:</b></td>
+           <td><input type="text" style="width:170px" name="name" maxlength="12" /></td>
+       </tr>
+      
+
+       <tr>
+           <td><b>생일:</b></td>
+           <td>
+               <input type="text" style="width:80px" id="years" readonly/>년
+               <input type="text" style="width:80px" id="month" readonly/>월
+               <input type="text" style="width:80px" id="day" readonly/>일
+           </td>
+       </tr>
+       <tr>
+           <td><b>관심분야:</b></td>
+           <td><input type="checkbox" name="inter" value="스타벅스">스타벅스</input>
+               <input type="checkbox" name="inter" value="탐앤탐스">탐앤탐스</input>
+               <input type="checkbox" name="inter" value="할리스">할리스</input>
+               <input type="checkbox" name="inter" value="이디야">이디야</input>
+           </td>
+       </tr>
+       
+               
+   </table>
+   <center>
+       <br/>
+       <input type="submit" value="변경후 홈페이지로"  ")>
+   </center>
+</form>
+</body>
+</html>

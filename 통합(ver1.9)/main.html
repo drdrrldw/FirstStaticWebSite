@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Would U Like &</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./슬라이드배너.css">
+    <!-- <link rel="stylesheet" href="./슬라이드배너2.css"> -->
+    <script src="./슬라이드배너.js"></script>
+    <!-- <script src="./슬라이드배너2.js"></script> -->
+</head>
+
+
+<body link="black" vlink="black" alink="navy">
+
+
+    <header class="header">       
+        <div class="img_box">
+           <a href="./main.html">
+              <img src="toplogo.jpg" alt="" class="home_logo_img">
+            </a> 
+        </div>
+
+
+
+        <div class="user_infor">
+            <ul>
+                <li><a href="./login/login.html" class="login">로그인</a></li>
+                <li><a href="./회원가입/회원가입2.html" class="sign_up">회원가입</a></li>
+            </ul>
+        </div>
+
+
+
+
+
+
+    <div class="main_menu">
+        <div class="dropdown">
+            <button class="dropbtn">브랜드 별 역사 및 특징</button>
+            <div class="dropdown-content">
+              <a href="./브랜드 별 역사 및 특징/brandHistory.html">스타벅스</a>
+              <a href="./브랜드 별 역사 및 특징/brandHistory.html">할리스</a>
+              <a href="./브랜드 별 역사 및 특징/brandHistory.html">탐앤탐스</a>
+              <a href="./브랜드 별 역사 및 특징/brandHistory.html">이디야</a>
+            </div>
+          </div>
+    
+
+                
+            <div class="dropdown">
+                <button class="dropbtn"><a href="./브랜드별제품 소개/bran_Intro.html" class="dropbtnA"> 브랜드 별 제품 소개 </a> </button>
+                    
+            </div>
+            
+
+
+            <div class="dropdown">
+                <button class="dropbtn">커피 유형 별 심리테스트</button>
+                
+            </div>
+    </div>
+
+    </header>
+
+
+    
+    
+  <section class="section01">
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <a href="./브랜드 별 역사 및 특징/brandHistory.html">
+                 <img src="./이미지모음/main/main01.jpg" width="100%" class="bannerImg" >
+            </a>  
+        </div>
+  
+        <div class="mySlides fade">
+          <a href="./브랜드 별 역사 및 특징/brandHistory.html">
+            <img src="./이미지모음/main/main02s.jpg" width="100%" class="bannerImg" >
+          </a> 
+        </div>
+  
+        <div class="mySlides fade">
+          <a href="./브랜드 별 역사 및 특징/brandHistory.html">
+            <img src="./이미지모음/main/main03.jpg" width="100%" class="bannerImg" >
+          </a> 
+        </div>
+  
+        <div class="mySlides fade">            
+          <a href="./브랜드 별 역사 및 특징/brandHistory.html">
+            <img src="./이미지모음/main/main04.jpg" width="100%" class="bannerImg" >
+          </a> 
+        </div>
+  
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="moveSlides(-1)">&#10094;&#10094;</a>
+        <a class="next" onclick="moveSlides(1)">&#10095;&#10095;</a>
+      </div>
+   
+  
+    </section>    
+  
+  
+
+    <section class="main02" >
+      <div class="section02">
+        <div class="allBtnBox sec2Box">
+            <div class="btnBox" id="btnBox1">
+              <button type="button" class="btn" id="btn1" value="1" onclick="showSlidesCoffee(1)">
+                <img src="./이미지모음/logo/click01.jpg" alt="" class="btnImg" id="btnImg1">
+              </button>
+            </div>
+            
+            <div class="btnBox" id="btnBox2">
+              <button type="button" class="btn" id="btn2" value="2" onclick="showSlidesCoffee(2)">
+                <img src="./이미지모음/logo/click02.jpg" alt="" class="btnImg" id="btnImg2">
+              </button>
+            </div>
+            
+            <div class="btnBox" id="btnBox3">
+              <button type="button" class="btn" id="btn3" value="3" onclick="showSlidesCoffee(3)">
+                <img src="./이미지모음/logo/click03.jpg" alt="" class="btnImg" id="btnImg3">
+              </button>
+            </div>
+            
+            <div class="btnBox" id="btnBox4">
+              <button type="button" class="btn" id="btn4" value="4" onclick="showSlidesCoffee(4)">
+                <img src="./이미지모음/logo/click04.jpg" alt="" class="btnImg" id="btnImg4">
+              </button>
+            </div>
+        </div>
+        
+
+       <div class="prevBox arrowBtnBox">
+        <a class="prev2" onclick="moveSlidesCoffee(-1)">&#10094;&#10094;</a>
+      </div>
+
+        <div class="coffeeSlideBox sec2Box">
+            <div class="slideBox">
+              <img src="" alt="" class="slideImg fade2" id="slideImg">
+            </div>
+        </div>
+
+        <div class="nextBox arrowBtnBox">
+        <a class="next2" onclick="moveSlidesCoffee(1)">&#10095;&#10095;</a>
+      </div>
+
+  </div>
+
+    </section>        
+    
+
+
+    <div class="sec3">
+      <img src="./이미지모음/배경용/붉은 색감 인테리어.jpg" alt="">
+    </div>
+
+
+
+    <footer>
+        <div class="footerImgBox">
+
+          <img src="./이미지모음/footer/(1920)footers.jpg" alt="" class="footerImg">
+
+        </div>
+
+
+    </footer>
+
+
+    
+    
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+
+  
+  /* Slideshow container */
+  .slideshow-container2 {
+    max-width: 60vw;
+    max-height: 30vh;
+
+    position: relative;
+    
+  }
+  .mySlides2 > img {
+    height: 100%;
+  }
+
+
+  
+  /* Hide the images by default */
+  .mySlides2 {
+    display: none;
+   
+  }
+  
+  /* Fading animation */
+  .fade2 {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 10.0s;
+    animation-name: fade;
+    animation-duration: 10.0s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .8}
+    to {opacity: 3}
+  }
+  
+  @keyframes fade {
+    from {opacity: .8}
+    to {opacity: 3}
+  }
+
+  .imageSlideTd{
+    text-align: center;
+  }
+
+  .slideImg2{
+    text-align: center;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
