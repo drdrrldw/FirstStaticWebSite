@@ -6,7 +6,7 @@
 
 .wrap_all{
   height:100%;
-  width : 100vw;
+  width : calc(100vw - (100vw - 100%));
 }
 
 .header{
@@ -26,7 +26,7 @@
 
 
 nav{
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   height: 100px;
   position: relative;
   display: inline-block;
@@ -49,7 +49,7 @@ nav ul li{
 
 nav ul{
   width: 50vw;
-  height: 100%;
+  height: calc(100vw - (100vw - 100%));
 }
 
 
@@ -94,7 +94,7 @@ nav ul{
 }
 
 .main_menu{
-  width: 100%;
+  width: calc(100vw - (100vw - 100%));
   height: 40px;
   background-color: #ab1e22;
   position: absolute;
@@ -142,7 +142,7 @@ nav ul{
 
 
 
-.aside{
+/* .aside{
   width: 10vw;
   height: 60vh;
   position: fixed;
@@ -150,7 +150,7 @@ nav ul{
   margin-top: 20px;
   
 
-}
+} */
 
 
 
@@ -198,14 +198,15 @@ nav ul{
 .dropdown01:hover .dropbtn01 {background-color: #3e8e41;}
 
 
-.section01{
+
+
+.section01 {
   background: url("./test.jpg");
-  width: 90vw;
+  width: calc(100vw - (100vw - 100%));
   position: relative;
   z-index: -50;
   margin-left: auto;
   display: inline-block;
-  margin-left: 10vw;
 
   background-repeat : no-repeat;
   background-size : cover;
@@ -216,25 +217,29 @@ nav ul{
 .section01  > h1{
   font-size:3em;
   width:1000px;
-  color :#783c00;
-  font-family :'Times New Roman', Times, serif;
+  color :#723407;
+  font-family :sans-serif;
   position: absolute;
   top : 250px;
   left : 500px;
-  margin-left: 300px;
+  margin-left: 250px;
   animation: slide 1s ease-out;
+  font-weight: bolder;
+  text-shadow: 2px 2px #ddd;
 
 }
 .section01 > h2{
   font-size:2em;
   width:1000px;
-  color :#783c00;
+  color :#723407;
   font-family : sans-serif;
   position: absolute;
   top : 350px;
   left : 500px;
-  margin-left: 200px;
+  margin-left: 150px;
   animation: slide 2s ease-out;
+  font-weight: bolder;
+  text-shadow: 2px 2px #ddd;
 }
 
 @keyframes slide {
@@ -243,18 +248,18 @@ nav ul{
     opacity: 0;
   }
   to{
-    right : 500vh;
+    right : 400vh;
     opacity: 1;
   }
 }
 
 @keyframes disappear {
   from{
-    left : 2000px;
+    left : 400px;
     opacity: 1;
   }
   to{
-    right : -200px;
+    right : -100px;
     opacity: 0;
   }
 }
@@ -264,11 +269,10 @@ nav ul{
 
 
 .section02{
-  width: 90vw;
-  height: 110vh;
+  width: calc(100vw - (100vw - 100%));
+  height: calc(100vw - (100vw - 100%));
   display: block;
-  margin-left: 10vw;
-  margin-top : 30px;
+  /* margin-top : 30px; */
   display : inline-block;
   position: relative;
 
@@ -276,22 +280,22 @@ nav ul{
 
 .section02> .wrap_1 {
   /* background-color: black; */
-  width : 45vw;
-  height : 100vh;
+  width : 50vw;
+  height : calc(100vw - (100vw - 100%));
   float : left;
 }
 
 .section02> .wrap_1  > .wrap_name> img {
   /* background-color: black; */
-
+  width : 50vw;
 
 }
 
 .section02 >.wrap_2 {
    /* background-color: yellow;  */
-  width : 45vw;
-  height : 100vh;
-   float : right; 
+  width : 49vw;
+  height : calc(100vw - (100vw - 100%));
+  float : right; 
   
 }
 
@@ -299,8 +303,8 @@ nav ul{
 
 .wrap_2 >img{
   width : 45vw;
-  height:90vh;
-  margin-top:20px;
+  height:calc(100vw - (100vw - 100%));
+
 }
 .section02 >.wrap_1 > .wrap_name{
   /* background-color: red; */
@@ -312,38 +316,40 @@ nav ul{
 
 .section02 >.wrap_1> .wrap_choice1{
  
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   display:inline-block;
+
 }
 .section02 > .wrap_1 >.wrap_choice2{
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   /* background-color: black; */
   display: inline-block;
 
 }
 .section02 > .wrap_1 >.wrap_choice3{
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   /* background-color: blueviolet; */
   display: inline-block;
 }
 
 .section02 >.wrap_1 >.wrap_choice4{
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   /* background-color:cyan; */
   display: inline-block;
+
 }
 .section02 >.wrap_1> .wrap_choice5{
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   /* background-color:yellow; */
   display: inline-block;
 }
 .section02 >.wrap_1 >.wrap_choice6{
-  width : 13vw;
+  width : 15vw;
   height : 33vh;
   /* background-color:skyblue; */
   display: inline-block;
@@ -351,36 +357,35 @@ nav ul{
 
 
 .section02 > .wrap_1 > .wrap_choice1 > img{
-  width : 13vw;
+  width : 10vw;
   height : 30vh;
-  margin-top:30px;
 
 }
 
 .section02 > .wrap_1 >.wrap_choice2 > img{
-  width : 13vw;
+  width : 10vw;
   height : 30vh;
-  margin-top:30px;
+
 }
 .section02 > .wrap_1> .wrap_choice3 > img{
-  width : 13vw;
+  width : 10vw;
   height : 30vh;
-  margin-top:30px;
+
 }
 .section02> .wrap_1 >.wrap_choice4 > img{
-  width : 13vw;
+  width : 10vw;
   height : 33vh;
-  margin-top:50px;
+
 }
 .section02> .wrap_1 >.wrap_choice5 > img{
-  width : 13vw;
+  width : 10vw;
   height : 33vh;
-  margin-top:50px;
+
 }
 .section02> .wrap_1 >.wrap_choice6 > img{
-  width : 13vw;
+  width : 10vw;
   height : 33vh;
-  margin-top:50px;
+
 }
 
 /*이미지 마우스확대부분 */
@@ -458,9 +463,3 @@ nav ul{
 }
 
 
-
-.footer{
-  width: 100%;
-  height: 30vh;
-  
-}
