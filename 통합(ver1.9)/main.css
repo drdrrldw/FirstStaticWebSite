@@ -1,101 +1,101 @@
 
 
 * {
-    margin: 0;
-    padding: 0;
+      margin: 0;
+      padding: 0;
 }
 
 
 .header{
-    background-color: #ab1e22;
-    width: calc(100vw - (100vw - 100%));
+      background-color: #ab1e22;
+      width: calc(100vw - (100vw - 100%));
     
-    height: 150px;
-    position: relative;
+      height: 150px;
+      position: relative;
     
 }
 
 .img_box{
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
-    position: relative;
-    display: inline;
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+      position: relative;
+      display: inline;
 
 }
 
 .home_logo_img{
-    width: 400px;
-    height: 150px;
+      width: 400px;
+      height: 150px;
 }
 
 .user_infor ul li{
-    list-style-type: none;
-    float: left;
-    margin-left: 20px;
+      list-style-type: none;
+      float: left;
+      margin-left: 20px;
 }
 
 .user_infor > ul > li > a{
-    text-decoration: none;
-    color: whitesmoke;
-    font-size: 20px;
+      text-decoration: none;
+      color: whitesmoke;
+      font-size: 20px;
 
 }
 
 
 .user_infor{
-    position: absolute;
-    display: inline-block;
-    top : 40px;
-    right: 30px;
-    margin-right: 30px;
+      position: absolute;
+      display: inline-block;
+      top : 40px;
+      right: 30px;
+      margin-right: 30px;
     
 
 }
 
 .main_menu{
-    width: calc(100vw - (100vw - 100%));
-    height: 40px;
-    background-color: #ab1e22;
-    position: absolute;
+      width: calc(100vw - (100vw - 100%));
+      height: 40px;
+      background-color: #ab1e22;
+      position: absolute;
     
-    text-align: right;
-    top : 60px;
-    margin-top: 50px;
-    padding-bottom: 20px;
-    z-index: 555;
+      text-align: right;
+      top : 60px;
+      margin-top: 50px;
+      padding-bottom: 20px;
+      z-index: 555;
 
 }
 
 
 
 .dropbtnA{
-    font-size: 20px;
-    color: #ffffff;
+      font-size: 20px;
+      color: #ffffff;
 }
 
 .dropbtn {
-    background-color: #ab1e2300;
-    color: #ffffff;
-    padding: 5px;
-    font-size: 20px;
-    border : none;
-    font-weight: bolder;
+      background-color: #ab1e2300;
+      color: #ffffff;
+      padding: 5px;
+      font-size: 20px;
+      border : none;
+      font-weight: bolder;
   }
   
-  .dropdown {
-    position: relative;
-    display: inline-block;
+.dropdown {
+      position: relative;
+      display: inline-block;
     
-    margin-left: 10px;
-    z-index: 55;
+      margin-left: 10px;
+      z-index: 55;
   }
   
   
 .dropbtn a{
-    text-decoration: none;
-    font-size: 20px;
-    color: beige;
+      text-decoration: none;
+      font-size: 20px;
+      color: beige;
   }
   
   .dropdown:hover .dropbtn {background-color: #828282;}
@@ -107,45 +107,45 @@
 /* 섹션 1 */
   
 section{
-    margin-left: auto;
-    margin-right: auto;
+      margin-left: auto;
+      margin-right: auto;
     
 }
 
 @media (min-width:1600px) { 
 
-    .section01{
-        position: relative;
-        width: 1920px;
-        margin-top: 0px;
-        height: 600px;
-        background-color: rgba(0, 0, 0, 0.488);
+.section01{
+      position: relative;
+      width: 1920px;
+      margin-top: 0px;
+      height: 600px;
+      background-color: rgba(0, 0, 0, 0.488);
        
 }
 
-    .main02{
-        width: 1920px;
-    }
+.main02{
+      width: 1920px;
+}
 
 }
 
 @media (min-width:1000px) and (max-width:1600px) { 
 
-    .section01{
-        position: relative;
-        width: 1280px;
-        margin-top: 0px;
-        height: 600px;
-        background-color: rgba(0, 0, 0, 0.488);
+ .section01{
+      position: relative;
+      width: 1280px;
+      margin-top: 0px;
+      height: 600px;
+      background-color: rgba(0, 0, 0, 0.488);
         
       
   }
 
-  .main02{
+ .main02{
       width: 1280px;
   }
 
-  .sec3{
+.sec3{
       width: 1280px;
   }
 }
@@ -158,70 +158,70 @@ section{
 /* ▽ 섹션 2 */
 
 .main02{
-    display: flex;
-    justify-content: center;
-    background: rgba(0,0,0,0.3) url(./이미지모음/배경용/priscilla-du-preez-jxc2V0ayIfk-unsplash.jpg);
-    background-size: cover;
-    background-position: bottom;
-    background-blend-mode: darken;
+     display: flex;
+     justify-content: center;
+     background: rgba(0,0,0,0.3) url(./이미지모음/배경용/priscilla-du-preez-jxc2V0ayIfk-unsplash.jpg);
+     background-size: cover;
+     background-position: bottom;
+     background-blend-mode: darken;
     
 }
 
-  .section02{
-    width: 1920px;
+.section02{
+     width: 1920px;
     
-    height: 800px;
+     height: 800px;
     
-    display: flex;
-    justify-content: space-around;
-    padding-top: 50px;
+     display: flex;
+     justify-content: space-around;
+     padding-top: 50px;
     
-  }
+}
 .sec2Box{
-    width: 600px;
-    height: 600px;
-    margin: 10px;
-    position: relative;
+     width: 600px;
+     height: 600px;
+     margin: 10px;
+     position: relative;
 }
 
 .btnBox{
-    width: 300px;
-    height: 300px;
+     width: 300px;
+     height: 300px;
 }
 
 .allBtnBox{
-    display: flex;
-    position: relative;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 700px;
-    height: 830px;
+     display: flex;
+     position: relative;
+     justify-content: space-around;
+     flex-wrap: wrap;
+     width: 700px;
+     height: 830px;
 
 }
 
 .btn{
-    position: absolute;
-    display: inline-block;
+     position: absolute;
+     display: inline-block;
 }
 
 .btnImg{
-    width: 240px;
+     width: 240px;
 
 }
 
 
 .slideBox{
-    max-width: 100%;
-    max-height: 100%;
+     max-width: 100%;
+     max-height: 100%;
 }
 
 
 .slideImg{
-    width: 100%;
+     width: 100%;
 }
 
 .arrowBtnBox{
-    position: relative;
+     position: relative;
 }
 
 /* △ 섹션 2 */
@@ -231,17 +231,17 @@ section{
 /* 섹션3 */
 
 .sec3{
-    width:calc(100vw - (100vw - 100%));
-    height: 900px;
-    text-align: center;
+     width:calc(100vw - (100vw - 100%));
+     height: 900px;
+     text-align: center;
 
 
 }
 
 .sec3 > img{
-    width: calc(100vw - (100vw - 100%));
-    height: 100%;
-    opacity: 0.7;
+     width: calc(100vw - (100vw - 100%));
+     height: 100%;
+     opacity: 0.7;
 }
 
 
@@ -257,18 +257,18 @@ section{
 @media (min-width:1600px) { 
 
 
-    footer{
-        width: calc(100vw - (100vw - 100%));
-        height: 200px;
-        text-align: center;
-    }
+ footer{
+     width: calc(100vw - (100vw - 100%));
+     height: 200px;
+     text-align: center;
+}
     
-    .footerImgBox .footerImg{
-        width: calc(100vw - (100vw - 100%));
-        height: 500px;
-        left: 50px;
+ .footerImgBox .footerImg{  
+     width: calc(100vw - (100vw - 100%));
+     height: 500px;
+     left: 50px;
         
-    }
+}
     
 
 }
