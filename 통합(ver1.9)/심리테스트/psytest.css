@@ -31,24 +31,24 @@
 .user_infor{
   position: absolute;
   display: inline-block;
-  top : 10px;
-  right: 0px;
+  top : 40px;
+  right: 30px;
   margin-right: 30px;
 
+
 }
+
 .user_infor ul li{
   list-style-type: none;
   float: left;
   margin-left: 20px;
-
 }
-
 
 
 .user_infor > ul > li > a{
   text-decoration: none;
-  color: #ffff;
-  font-size: 14px;
+  color: whitesmoke;
+  font-size: 20px;
 
 }
 
