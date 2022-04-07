@@ -1,7 +1,7 @@
 
 
 
-// 왼쪽 사이드바에서 원하는 영역으로 스크롤을 내리는 기능의 함수
+
 function showContent(num){
       
     if(num == 1){
@@ -80,6 +80,10 @@ function showContent(num){
 
 }
 
+
+
+
+// 왼쪽 사이드바에서 원하는 영역으로 스크롤을 내리는 기능의 함수
 function scrollView(n){
     
     if(n == 2){
