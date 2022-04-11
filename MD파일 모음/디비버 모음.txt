@@ -1,0 +1,535 @@
+SELECT SYSDATE FROM dual;
+-- ctrl + enter : 현재 커서 줄 실행
+-- 블락지정 alt x : 선택된문장 한꺼번에 실행
+
+SELECT LENGTH('안녕하세요') FROM dual;
+
+-- CREATE TABLE 테이블이름(
+--    컬럼명 데이터타입 조건,
+--    컬럼명 데이터타입 조건,
+--    ...
+--);
+--테이블 삭제 
+DROP TABLE 테이블명;
+DROP TABLE EMPLOYEE;
+         --테이블 생성
+--직원 테이블
+CREATE TABLE EMPLOYEE
+(
+   ID VARCHAR2(20) ,
+   NAME VARCHAR2(20) NOT NULL,
+   AGE NUMBER(3),
+   GENDER VARCHAR2(1),
+   DEPT_ID VARCHAR2(20),
+   CONSTRAINT pkAsEmp PRIMARY KEY(ID),
+   CONSTRAINT uniqueName UNIQUE (NAME),
+   CONSTRAINT foreignDeptId FOREIGN KEY(DEPT_ID) REFERENCES DEPT(ID)
+);
+
+
+--외래키. FOREIGN KEY  다른테이블의 PK를 참조하는 제약
+--외래키 삭제
+
+ALTER TABLE EMPLOYEE DROP CONSTRAINT foreignDeptId;
+
+
+-- 외래키 부모자식 연결
+ALTER TABLE EMPLOYEE 
+ADD FOREIGN KEY (DEPT_ID)
+REFERENCES DEPT(ID)
+ON DELETE CASCADE;
+
+
+--부서 테이블
+DROP TABLE DEPT;
+CREATE TABLE DEPT
+(
+   ID VARCHAR2(20),
+   NAME VARCHAR2(20),
+   UPPER_DEPT_ID VARCHAR2(20),
+   MAX_EMPLOYEE NUMBER(3),
+   CONSTRAINT pkAsDept PRIMARY KEY(ID)
+);
+
+
+-- 데이터 삽입 문법 INSERT INTO 테이블명(컬럼1, 컬럼2, ...) VALUES( 데이터1, 데이터2, ...)
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('bae001', '배성원', 35, 'm', '001');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('bruceLee', '이소룡', 35, 'm', '002');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('steveJobs', '스티브잡스', 42, 'm', '003');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('iu', '아이유', 25, 'w', '004');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('leesengchul', '이승철', 43, 'm', '002');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('Machel Jordan', '마이클조던', 40, 'm', null);
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('jisungPark', '박지성', 39, 'm', '007');
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('chulsooPark', '박철수', 20, 'm', null);
+COMMIT;
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('001', '기획부', null, 300);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('002', '기획재정부', 001, 50);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('003', '홍보부', null, 300);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('004', '마케팅부', 003, 30);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('005', '개발부', null, 600);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('006', '프론트개발', 005, 100);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('007', '백엔드개발', 005, 100);
+INSERT INTO DEPT (ID, NAME, UPPER_DEPT_ID, MAX_EMPLOYEE) VALUES('000', 'CClass', null, 10);
+-- 모든 컬럼에 대해서 넣을때는 컬럼을 안써줘도 된다. 
+
+
+
+
+
+
+
+--<조인문제>
+--#1. 이너조인 부서명이 기획재정부인 사원들의 이름을 보여주세요
+	-- 서로 다른 테이블의 데이터를 하나의 테이블처럼 조회해야한다. = 조인.
+	-- 조인의 조건이 무엇인지.
+SELECT e.NAME , d.NAME  FROM EMPLOYEE e  JOIN DEPT d ON e.DEPT_ID = d.ID WHERE d.NAME = '기획재정부';
+
+--2. Left outer Join : 모든 사원에 대해서 그 사원의 이름과 부서명을 보여주세요.
+SELECT e.NAME AS 사원명 , d.NAME AS 속해있는부서
+FROM EMPLOYEE e 
+LEFT OUTER JOIN DEPT d 
+ON e.DEPT_ID = d.ID ;
+
+
+--3. 모든 사원에 대해서 그 사원의 이름과 부서명을 보여주세요. -- 단, 부서에 속한 사람만 보여주세요.
+SELECT e.NAME AS 사원명 , d.NAME AS 속해있는부서
+FROM EMPLOYEE e 
+JOIN DEPT d 
+ON e.DEPT_ID = d.ID ;
+
+
+
+--4. 최고 인원수가 300명 이상인 부서들에 속해있는 사원들의 아이디와 이름을 보여주세요.
+SELECT e.ID  AS ID , e.NAME AS 사원명
+FROM EMPLOYEE e 
+LEFT OUTER JOIN DEPT d 
+ON e.DEPT_ID = d.ID 
+WHERE MAX_EMPLOYEE >= 300;
+
+
+
+--5. 사원이 할당되지 않은 부서의 max 인원을 다 합치면 몇명입니까?
+--#5-1 모든 부서의 할당 인원이 별개일 경우 (하위부서의 인원은 상위부서에 포함되지 않을때)
+--<선생님 풀이>
+SELECT d.ID , d.NAME , d.MAX_EMPLOYEE 
+FROM DEPT d , EMPLOYEE e 
+WHERE e.DEPT_ID(+) = d.ID  -- RIGHT JOIN 과 같음 d가 기준이고 (+)가 낑겨옴
+AND e.DEPT_ID IS NULL ;
+
+--<동원>
+SELECT SUM(MAX_EMPLOYEE)
+FROM DEPT d  
+LEFT OUTER JOIN EMPLOYEE e 
+ON e.DEPT_ID = d.ID
+WHERE e.DEPT_ID IS NULL ;
+
+
+
+
+
+
+--6. 부서별로 등록된 사원이 몇명인지 보여주세요.
+	-- 등록된 사원이 없으면 어떻게 할까요? 등록된 사원이 없으면 0명으로 표시
+ -- GROUP BY 는 그룹으로 묶일놈 외에는 다 집계함수가 들어가야한다.
+SELECT d.NAME ,COUNT(e.ID)
+FROM DEPT d
+LEFT OUTER JOIN EMPLOYEE e 
+ON e.DEPT_ID = d.ID
+GROUP BY d.NAME
+ORDER BY COUNT(e.ID) DESC;
+
+
+--7 고급 문제. 이승철이 속한 부서의 최고 나이 많은 사람의 이름은 무엇입니까?
+SELECT e.NAME, e.AGE 
+FROM EMPLOYEE e 
+RIGHT OUTER JOIN DEPT d 
+ON e.DEPT_ID = d.ID 
+WHERE d.NAME IN 
+(SELECT d.NAME FROM EMPLOYEE e RIGHT OUTER JOIN DEPT d ON e.DEPT_ID = d.ID WHERE e.NAME IN ('이승철'))
+ORDER BY e.AGE DESC 
+FETCH FIRST 1 ROWS ONLY;
+
+
+
+
+
+
+
+
+
+SELECT *
+FROM EMPLOYEE e 
+LEFT OUTER JOIN DEPT d 
+ON e.DEPT_ID = d.ID ;
+
+
+--추가문제 상위부서가 없는 부서에 속해있는 사원들을 보여주세요.
+--SELECT e.NAME AS 사원명 , d.NAME AS 속해있는부서  
+SELECT e.NAME AS 사원명 , d.NAME AS 속해있는부서
+FROM EMPLOYEE e 
+LEFT OUTER JOIN DEPT d 
+ON e.DEPT_ID = d.ID 
+
+
+
+SELECT * FROM EMPLOYEE; 
+SELECT * FROM DEPT d ;
+
+
+--UPDATE 테이블명 SET 컬럼명 = 바꿀값 WHERE 조건;
+--UPDATE 연습
+--1번 문제. 최대사원수가 100명인 부서들의 최대사원수를 110명으로 늘려주세요.
+UPDATE DEPT SET MAX_EMPLOYEE = 110 WHERE MAX_EMPLOYEE =100;
+COMMIT;
+
+
+--2번 문제. 박철수의 성별을 'w'로 바꿔주세요.
+
+UPDATE EMPLOYEE SET GENDER = 'w' WHERE NAME = '박철수';
+
+
+--3번 문제. 박철수의 나이를 박지성의 나이와 같게 바꿔주세요.
+UPDATE EMPLOYEE SET AGE = (SELECT AGE FROM EMPLOYEE WHERE name='박지성') WHERE NAME = '박철수';
+
+--4번 문제. 부서명이 '프론트개발'과 '백엔드개발'의 이름을 '프론트 개발', '백엔드 개발'로 바꿔주세요.
+UPDATE DEPT  SET name = '프론트 개발' WHERE name = '프론트개발';
+UPDATE DEPT  SET name = '백엔드 개발' WHERE name = '백엔드개발';
+
+--5. 부서명이 개발로 끝나는 컬럼을 찾아 '개발' 문자열을 'DEV' 문자열로 바꿔주세요.
+UPDATE DEPT SET name = REPLACE (NAME, '개발', 'DEV')   WHERE name LIKE '%개발';
+
+SELECT NAME FROM DEPT WHERE name  LIKE '%개발';
+
+
+--6. 부서명이 'CCLASS'인 부서ID를 '008'로 바꿔주세요.
+UPDATE DEPT SET ID = '008' WHERE name = 'CClass';
+ROLLBACK;
+
+
+
+--7. (들어있는 사원이 있을때) 부서명이 'CCLASS'인 부서ID를 '008'로 바꿔주세요.
+	--먼저 박철수를 '000' 부서로 넣어주세요.
+UPDATE EMPLOYEE SET DEPT_ID = '000' WHERE NAME = '박철수';
+UPDATE DEPT SET ID = '008' WHERE name = 'CClass';
+
+DELETE FROM DEPT WHERE ID = '000';  ---000 부서를 지웠다. 000부서에 등록되어 있던 사원이 지워졌나 확인
+-- 지우기전에 SELECT를 값을 확보해놓고 다시 고친 내용으로 INSERT 하면 되는데
+-- 사실 이건 안좋은 방법. 	PK는 이 테이블에서 이 행이 유일함을 식별해주는 역할.
+-- 업데이트든 딜리트든 pk는 건들지 않는다. 가 원칙이라고 생각해야됨, 변하게 하면 시스템에 큰 문제를 불러일으킬수 있기 때문.
+-- 그래서 처음에 설계를 잘해야한다.
+
+
+
+
+--
+select CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME
+from user_constraints
+where CONSTRAINT_NAME = 'FOREIGNDEPTID' ;  -- 이걸로 찾은 R_CONSTRAINT_NAME 으로 다시 검색
+
+
+select CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME
+from user_constraints
+where CONSTRAINT_NAME = 'PKASDEPT' ;       -- pkASdept
+
+
+select * from EMPLOYEE where DEPT_ID 필드명 = 'PK값'
+
+
+DELETE DEPT WHERE DEPT_ID = '000' ON DELETE CASCADE;
+
+
+
+
+
+
+
+--with절 연습 : 임시로 만든 테이블을 재활용 하고 싶을 때, 어떤 결과를 반환하려는 블록을 재활용 하고 싶을 때
+WITH TEMP1 AS(
+      SELECT 100 AS PRICE FROM DUAL
+      UNION ALL
+      SELECT 200 AS PRICE FROM DUAL
+      UNION ALL
+      SELECT 400 AS PRICE FROM DUAL
+      UNION ALL
+      SELECT 1500 AS PRICE FROM DUAL
+      UNION ALL
+      SELECT 0 AS PRICE FROM DUAL
+      UNION ALL
+      SELECT NVL(NULL,0) AS PRICE FROM DUAL
+     )
+     SELECT SUM(PRICE) FROM TEMP1;
+
+
+--NVL : NULL 일때 실행할 문장
+--	문법 : NVL(컬럼, 널일때값)
+
+    
+
+    
+    
+
+
+-- 데이터 수정 UPDATE 테이블명 SET 컬럼명=바꿀값 WHERE 조건;
+UPDATE EMPLOYEE SET ID = 'SteveJobs' WHERE ID = 'steveJobs';
+SELECT * FROM EMPLOYEE e ;
+SELECT * FROM DEPT d ;
+COMMIT;
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('가짜놈', '가짜놈', 43, 'm', 'music');
+ROLLBACK;   --마지막 커밋 상황으로 되돌린다.
+
+-- 데이터 삭제 DELETE FROM 테이블명 WHERE 조건;
+DELETE FROM EMPLOYEE WHERE NAME  = '배성원';
+
+-- 제약 조건 추가
+CONSTRAINT [제약조건명] [제약조건]([컬럼명])
+
+
+-- PK 지정
+--1. 이미만들어진 테이블에 지정하는 방법
+   -- ALTER TABLE 테이블명 ADD CONSTRAINT PK명 PRIMARY KEY (컬럼명1, 컬럼명2,...);   -- PK를 생성한다.
+ALTER TABLE EMPLOYEE ADD CONSTRAINT pkAsEmp PRIMARY KEY (ID);
+INSERT INTO EMPLOYEE (ID, NAME, AGE, GENDER, DEPT_ID) VALUES ('bruceLee2', '이소룡', 35, 'm', 'mashalart');
+--2. 테이블을 만들때부터 지정하는 방법
+테이블 CREATE문장 밑에 CONSTRAINT 별명 PRIMARY KEY(식별컬럼)
+-- PK삭제
+ALTER TABLE 테이블명 DROP CONSTRAINT 별명 ; 
+
+-- PK조회
+SELECT A.TABLE_NAME
+     , A.CONSTRAINT_NAME
+     , B.COLUMN_NAME     
+     , B.POSITION
+  FROM ALL_CONSTRAINTS  A
+     , ALL_CONS_COLUMNS B
+ WHERE A.TABLE_NAME      = 'EMPLOYEE'
+   AND A.CONSTRAINT_NAME = B.CONSTRAINT_NAME
+ ORDER BY B.POSITION;
+
+
+
+--계층형 쿼리
+  문법 : START WITH 최상위조건
+  		CONNECT BY 옵션 계층조건;
+SELECT D.ID, D.NAME, D.UPPER_DEPT_ID FROM DEPT D
+  	
+START WITH D.UPPER_DEPT_ID IS NULL
+CONNECT BY PRIOR D.UPPER_DEPT_ID = D.ID;
+
+
+
+WITH T(SEQ, NM, PARENT_NM) AS (
+   SELECT 1, '태조', NULL FROM DUAL
+   UNION ALL
+   SELECT 2, '정종', '태조' FROM DUAL
+   UNION ALL
+   SELECT 3, '태종', '태조' FROM DUAL
+   UNION ALL
+   SELECT 4, '세종', '태종' FROM DUAL
+   UNION ALL
+   SELECT 5, '문종', '세종' FROM DUAL
+   UNION ALL
+   SELECT 6, '단종', '문종' FROM DUAL
+   UNION ALL
+   SELECT 7, '세조', '세종' FROM DUAL
+)
+SELECT LEVEL
+     , NM
+     , LPAD(NM, LEVEL * 4, 'ㄴ') AS NM_2
+FROM T
+START WITH PARENT_NM IS NULL
+CONNECT BY PRIOR NM = PARENT_NM;
+
+//LPAD(값, 총문자길이, 채움문자)
+
+
+--선생님이 준 댓글 데이터를 활용해서 borad_no = 1번글에 쓰여진 삭제되지 않은 댓글을 계층형으로 보여주세요.
+with data AS(
+    select 1 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '1번째 댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 3 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 4 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 2 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 5 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 6 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 22 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 26 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 22 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 28 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 29 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 24 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 25 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual
+)
+SELECT * FROM DATA;
+
+
+
+
+with data AS(
+    select 1 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '1번째 댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 3 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 4 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 2 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 5 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 6 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 22 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 26 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 22 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 28 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 29 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 24 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 25 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual
+)
+SELECT DEPTH
+     ,LPAD(CONTENT, DEPTH * 4, '  ㄴ') AS content
+     FROM DATA
+START WITH PARENT IS NULL
+CONNECT BY PRIOR comment_no = PARENT;
+
+
+-- 정답
+with data AS(
+    select 1 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '1번째 댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 3 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 4 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 1 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 2 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 5 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 6 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 2 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 22 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 26 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 22 as parent, 2 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 28 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 29 as comment_no, 1 as board_no, 2 as user_no, 0 as secret_yn, '댓글' as content, 26 as parent, 3 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 24 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual union all
+    select 25 as comment_no, 1 as board_no, 1 as user_no, 0 as secret_yn, '댓글' as content, null as parent, 1 as depth, sysdate as write_date, null as modifier, sysdate as modify_date, 'n' as delete_yn from dual
+)
+SELECT comment_no,
+	   board_no,
+	   user_no,
+	   secret_yn,
+	   LPAD('ㄴ',2*(DEPTH-1)) || content AS content,
+	   parent,
+	   DEPTH,
+	   write_date,
+	   modifier,
+	   modify_date,
+	   DELETE_yn
+	FROM data
+WHERE board_no = 1
+	AND delete_yn = 'n'
+START WITH parent IS null
+CONNECT BY PRIOR comment_no = parent;
+
+
+
+
+
+--외래키. FOREIGN KEY  다른테이블의 PK를 참조하는 제약
+--행정 시험 예상답안
+
+--직원 테이블
+DROP TABLE EMPLOYEES ;
+CREATE TABLE EMPLOYEES
+(
+   사원ID VARCHAR2(20) ,
+   폰번호 VARCHAR2(20),
+   이름 VARCHAR2(20),
+   나이 VARCHAR2(20),
+   성별 VARCHAR2(5),
+   주소 varchar2(50),
+   부서 VARCHAR2(20),
+   직책 VARCHAR2(20),
+   연봉 VARCHAR2(20),
+   입사일 DATE,
+   퇴사일 DATE DEFAULT null,
+   CONSTRAINT pkEmp PRIMARY KEY(사원ID),
+   CONSTRAINT foreignId FOREIGN KEY(부서) REFERENCES DEPARTMENTS(부서ID)
+);
+
+COMMIT;
+
+--부서 테이블
+CREATE TABLE DEPARTMENTS
+(
+   부서ID VARCHAR2(20),
+   부서명 VARCHAR2(20),
+   상위부서 VARCHAR2(20),
+   생성일 DATE,
+   부서장 VARCHAR2(20),
+   CONSTRAINT pkDept PRIMARY KEY(부서ID)
+);
+
+
+COMMIT;
+
+
+
+ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS';
+INSERT INTO EMPLOYEES (사원ID, 폰번호, 이름, 나이, 성별, 주소, 부서, 직책, 연봉, 입사일, 퇴사일) 
+VALUES ('00000001','010-2082-1758','오형수','30','남','서울시','001','과장','8469','2022-01-11', null );
+
+SELECT * FROM EMPLOYEES e ;
+UPDATE EMPLOYEES SET 퇴사일 = nULL WHERE 나이 = 30;
+DELETE FROM EMPLOYEES;
+
+
+
+INSERT ALL 
+INTO EMPLOYEES VALUES ('00000001', '010-2082-1758', '오형수', '30', '남', '서울시', '001', '과장', '8469', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000002', '010-4776-0127', '제갈성옥', '22', '남', '서울시', '001', '사원', '3412', '2020-03-03', '2021-03-03')
+INTO EMPLOYEES VALUES ('00000003', '010-2045-2314', '고성훈', '20', '남', '서울시', '002', '사원', '3074', '2020-03-03', null)
+INTO EMPLOYEES VALUES ('00000004', '010-5424-8467', '고은옥', '31', '여', '강원도', '003', '사원', '3719', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000005', '010-8861-3236', '정희아', '38', '여', '강원도', '004', '부장', '5848', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000006', '010-4555-1632', '황주희', '36', '남', '경기도', '001', '차장', '4909', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000007', '010-5303-1108', '복만호', '32', '남', '서울시', '001', '차장', '4867', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000008', '010-8355-5100', '신혜훈', '32', '남', '경기도', '002', '대리', '3653', '2020-03-03', '2021-03-03')
+INTO EMPLOYEES VALUES ('00000009', '010-1861-4130', '예범준', '35', '여', '경기도', '003', '대리', '4113', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000010', '010-6715-6538', '최선미', '26', '여', '경상북도', '004', '사원', '3623', '2020-03-03', null)
+INTO EMPLOYEES VALUES ('00000011', '010-0874-4266', '예효주', '26', '남', '서울시', '001', '사원', '3230', '2020-03-03', null)
+INTO EMPLOYEES VALUES ('00000012', '010-8620-5603', '홍상수', '28', '남', '서울시', '001', '대리', '3826', '2020-03-03', null)
+INTO EMPLOYEES VALUES ('00000013', '010-4531-8274', '조소빈', '38', '남', '서울시', '002', '과장', '4232', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000014', '010-8063-0313', '윤민욱', '22', '여', '경기도', '003', '사원', '3317', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000015', '010-8655-2558', '안종수', '56', '여', '경기도', '004', '이사', '7447', '2015-05-07', null)
+INTO EMPLOYEES VALUES ('00000016', '010-2026-8330', '풍다희', '37', '남', '서울시', '001', '사원', '3309', '2015-05-07', '2021-03-03')
+INTO EMPLOYEES VALUES ('00000017', '010-6601-1106', '노남일', '41', '남', '서울시', '001', '부장', '5620', '2015-05-07', null)
+INTO EMPLOYEES VALUES ('00000018', '010-1243-5364', '풍희호', '52', '남', '서울시', '002', '이사', '9924', '2015-05-07', null)
+INTO EMPLOYEES VALUES ('00000019', '010-4817-1308', '김세웅', '30', '여', '서울시', '003', '사원', '3505', '2019-03-19', null)
+INTO EMPLOYEES VALUES ('00000020', '010-0487-0155', '탁성민', '32', '여', '강원도', '004', '사원', '4391', '2019-03-19', '2022-04-01')
+INTO EMPLOYEES VALUES ('00000021', '010-5652-2016', '오효주', '51', '남', '강원도', '001', '부장', '5609', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000022', '010-6748-0138', '임수연', '29', '남', '경기도', '001', '사원', '3623', '2019-03-19', null)
+INTO EMPLOYEES VALUES ('00000023', '010-2610-2582', '오은자', '32', '남', '경기도', '002', '사원', '2932', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000024', '010-5115-2160', '이광환', '23', '여', '충청북도', '003', '사원', '3262', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000025', '010-6777-6324', '노지우', '59', '여', '서울시', '004', '이사', '7139', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000026', '010-6312-8177', '안현수', '33', '남', '서울시', '001', '사원', '3622', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000027', '010-1053-8530', '남승식', '23', '남', '경상남도', '001', '사원', '2886', '2022-01-01', '2022-04-01')
+INTO EMPLOYEES VALUES ('00000028', '010-6261-7445', '복민성', '46', '남', '전라북도', '002', '부장', '5698', '2019-03-19', null)
+INTO EMPLOYEES VALUES ('00000029', '010-1422-2417', '전홍재', '59', '남', '전라남도', '003', '상무', '9338', '2015-05-07', null)
+INTO EMPLOYEES VALUES ('00000030', '010-3527-3534', '손시윤', '43', '남', '경기도', '005', '부장', '5598', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000031', '010-2242-4201', '성상욱', '27', '여', '경기도', '001', '사원', '4070', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000032', '010-3713-6051', '복도하', '33', '여', '서울시', '002', '사원', '2740', '2022-01-01', null)
+INTO EMPLOYEES VALUES ('00000033', '010-8503-8545', '예지연', '52', '남', '서울시', '003', '사원', '3399', '2019-03-19', null)
+INTO EMPLOYEES VALUES ('00000034', '010-7682-2551', '정혜미', '45', '남', '서울시', '005', '부장', '6369', '2017-07-07', '2022-04-01')
+INTO EMPLOYEES VALUES ('00000035', '010-8185-8107', '설남선', '42', '남', '서울시', '001', '차장', '5325', '2020-03-03', null)
+INTO EMPLOYEES VALUES ('00000036', '010-3074-3712', '하재남', '43', '여', '강원도', '002', '차장', '4589', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000037', '010-0087-4055', '표동주', '40', '여', '강원도', '003', '차장', '4456', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000038', '010-6837-3677', '풍남준', '25', '남', '경기도', '001', '사원', '3573', '2022-01-01', '2022-04-01')
+INTO EMPLOYEES VALUES ('00000039', '010-1844-1026', '복준성', '46', '남', '경기도', '005', '차장', '4885', '2017-07-07', null)
+INTO EMPLOYEES VALUES ('00000040', '010-4287-7020', '박준현', '24', '남', '경기도', '003', '사원', '3687', '2022-01-01', null)
+SELECT * FROM dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+--유저생성 문법 create user [id] identified by [pw];
+CREATE USER C##Drdrr IDENTIFIED BY 0070;
+
+-- 권한 부여 문법    GRANT [권한] TO [아이디];
+GRANT ALL PRIVILEGES TO C##Drdrr; -- 모든권한부여
+COMMIT;
+
+-- 계정생성확인
+SELECT * FROM ALL_USERS WHERE LOWER(USERNAME) = 'C##Drdrr';
