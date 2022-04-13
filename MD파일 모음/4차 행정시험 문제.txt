@@ -130,7 +130,16 @@ FETCH FIRST 1 ROWS ONLY;
 8. 사원들의 부서별, 나이대별(20대, 30대, 40대, 50대, 60대이상)로 사원수를 출력해보시오.
 
 
-
+SELECT d.부서명 , 
+SUM(CASE WHEN 나이 < 30 THEN 1 ELSE 0 END) AS "20대",
+SUM(CASE WHEN (나이 >= 30 AND 나이 < 40) THEN 1 ELSE 0 END) AS "30대",
+SUM(CASE WHEN (나이 >= 40 AND 나이 < 50) THEN 1 ELSE 0 END) AS "40대",
+SUM(CASE WHEN (나이 >= 50 AND 나이 < 60) THEN 1 ELSE 0 END) AS "50대",
+SUM(CASE WHEN 나이 >= 60 THEN 1 ELSE 0 END) AS "60대" 
+FROM EMPLOYEES e 
+LEFT JOIN DEPARTMENTS d 
+ON e.부서ID = d.부서ID 
+GROUP BY d.부서명;
 
 
 9. '홍보부'보다 이전에 생성된 부서들의 이름을 보여주세요.
@@ -138,9 +147,49 @@ FETCH FIRST 1 ROWS ONLY;
 SELECT 부서명, 생성일 FROM DEPARTMENTS WHERE 생성일 < (SELECT 생성일 FROM DEPARTMENTS d WHERE 부서명 = '홍보부');
 
 10. 우리회사 최고 연봉자가 소속된 부서의 부서장의 이름을 보여주세요.
+
+SELECT 이름, 연봉, 부서명, 부서장 
+FROM EMPLOYEES e 
+LEFT JOIN DEPARTMENTS d 
+ON e.부서ID = d.부서ID 
+ORDER BY 연봉 DESC
+FETCH FIRST 1 ROWS ONLY ;
+
+
 11. 퇴사자들이 가장 많은 부서의 이름과 그 부서의 평균 연봉을 보여주세요.
+
+SELECT 부서명, count(부서명) AS 퇴사자인원수, (SELECT AVG(연봉)
+FROM EMPLOYEES e 
+WHERE 부서ID = 001) AS 부서평균연봉
+FROM EMPLOYEES e 
+LEFT JOIN DEPARTMENTS d 
+ON e.부서ID = d.부서ID 
+WHERE NOT 퇴사일 IS NULL
+GROUP BY 부서명
+ORDER BY 퇴사자인원수 DESC 
+FETCH FIRST 1 ROWS ONLY;
+
 12. 남직원과 여직원 사이의 연봉 격차가 얼마나 됩니까?
 
 
 
+SELECT AVG(연봉)
+FROM EMPLOYEES e 
+WHERE 성별 = '남'; --남자 연봉 
+
+
+
+SELECT AVG(연봉)
+FROM EMPLOYEES e 
+WHERE 성별 = '여'; --여자 연봉
+
+
+SELECT CASE WHEN  
+	(SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '여') > (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '남')
+THEN (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '여') - (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '남')
+WHEN (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '여') < (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '남')
+THEN (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '남') - (SELECT AVG(연봉) FROM EMPLOYEES e WHERE 성별 = '여')
+ELSE 0
+END AS 남녀직원연봉차이
+FROM dual;  --남녀 연봉 비교후 더 높은 값에서 뺄셈 혹은 동일할경우 0 리턴
 

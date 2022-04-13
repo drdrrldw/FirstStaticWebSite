@@ -1,0 +1,66 @@
+4월 12일 화요일
+<출석체크>
+앱이 안켜짐.
+09:07 에 스크린샷
+
+<학습목표>
+- 고객을 믿지마라. 그컬럼에 절대 음수 못들어갑니다. 절대 null없어요.  사인받아놔야됨.
+			자바스크립트로 유효성검사 다 끝난 데이터만 db로 넘어간다고 해도 믿으면 안됨.
+			화면의 유효성 끝난 데이터가 아니라 insert나 update로 직접 변경할수있다.
+- view
+- ERD클라우드 연습
+	회사, 제품, 고객, 보유제품
+	하이마트의 지점에서 사용할 시스템.
+	회사 = 우리 지점에서 관계를 맺고있는 제조사
+	가격은? 
+	구매처는?
+	가격이 변동되면 구매처가 망하면?
+- 6교시 sql시험 -> 4교시
+- 5교시 : 자바
+1. 자바 설치
+	대부분의 국비학원에서 1.8을 다운.
+	11버전 찾아서 zip버전 말고 설치버전 다운로드. (오라클 회원가입, 로그인)
+	cmd에서 java -version
+	javac -version 확인
+	검색창에 변수 - 고급 - 환경변수 - PATH에 JAVA경로 들어간것 확인.
+2. 이클립스 (IDE) 설치
+	STS는 스프링전용 이클립스다.
+	나중에 스프링수업때 STS를 또 깔고, 또 환경세팅하고 해야되기 때문에 자바할때부터 바로 STS설치.
+	구글에서 STS 쳐서 https://spring.io/tools 에서 운영체제에 맞는거 다운로드
+	더블클릭해서 압축풀고 원하는 경로로 이동.
+	SpringToolSuite4.ini 파일 열어서 메모리 설정  최소는 1/8. 최대는 1/4.
+					-vm 밑의줄에 참조할 java홈경로의 bin까지 주소 붙여넣기
+	exe파일 더블클릭으로 실행. workspace설정 자기가 하고싶은곳으로 해주고 체크해주고 launch
+	왼쪽에서 create java project 버튼 클릭. 모듈체크 해제하고 finish
+	src폴더 우클릭 - new - class - 이름정하고 - main함수 체크
+	클래스파일의 main함수 안에서 System.out.println("hello world");
+	우클릭 - run as - Java Application  하면 콘솔에 hello world찍힌다.
+	
+	main함수는 한프로젝트에 하나밖에 없는 함수다.
+	프로젝트가 실행되면 main함수가 실행된다.
+	syso 누르고 ctrl space 누르면 자동완성됨.
+	ctrl f11 : 제일 최근에 실행했던 run 다시 실행
+	ctrl shift r : 파일이름으로 파일 자동 찾기
+	
+	변수 선언, 데이터타입
+	함수 만들기 연습
+	접근제한자
+	getter/setter
+		우클릭 -  source - generate getter/setter
+	
+	
+	프로젝트 외부로 빼내는 법 : 	프로젝트 우클릭 - export- general - file archive
+	프로젝트 내 workspace로 가져오는 법 : file - import - genral - Existing project into workspace(이클립스로 export한 파일 쉽게 가져올때)
+			폴더인지 압축파일인지 선택하고 경로 선택해주기.
+			project from folder or archive는 이클립스 설정파일이 없는 파일을 가져올때 사용.
+	
+<공지사항>
+- 이번주 금요일까지만 수업.
+  6교시 4교시전에 치고 오후부터는 자바배우려고 한다.
+  오후부터 자바.
+  - WHY가 이해안되면 계속 질문.
+  HOW는 구글에 다 있다. 좋은 강의들 인터넷에 다 있다. 거기에는 '나'라는 존재가 없다.
+  내 수준에 맞는 순서와 피드백
+  그래서 그거를 왜 하는지.
+  - 
+  
